@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import type { Istasyon } from "./MapboxMap";
+import MapErrorBoundary from "./MapErrorBoundary";
 
 const MapboxMap = dynamic(() => import("./MapboxMap"), { ssr: false });
 
@@ -39,7 +40,9 @@ export default function MapSection() {
         </div>
 
         <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm" style={{ height: 520 }}>
-          <MapboxMap istasyonlar={ISTASYONLAR} aktifTurler={[...AKTIF_TURLER]} />
+          <MapErrorBoundary>
+            <MapboxMap istasyonlar={ISTASYONLAR} aktifTurler={[...AKTIF_TURLER]} />
+          </MapErrorBoundary>
         </div>
       </div>
     </section>

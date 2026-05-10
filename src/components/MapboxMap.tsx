@@ -144,7 +144,9 @@ export default function MapboxMap({ istasyonlar, aktifTurler }: Props) {
   // Harita yükle
   useEffect(() => {
     if (!containerRef.current) return;
-    mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
+    const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
+    if (!token) return; // token yoksa haritayı açma, sayfa çökmesin
+    mapboxgl.accessToken = token;
 
     const map = new mapboxgl.Map({
       container: containerRef.current,
